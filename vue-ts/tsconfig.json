@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
+    // 目标
     "target": "esnext",
+    // 模块
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
+    // 装饰器写法
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
