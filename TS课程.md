@@ -39,6 +39,14 @@ JS代码
 
 ## 2.4TS环境
 
+### 初始化成ts项目
+
+```js
+tsc --init
+```
+
+
+
 必须使用node
 
 1.单引号
@@ -181,3 +189,204 @@ never返回值类型,一般用的少把
 ​	如果放到两行,神奇的事情发生了,也就是,类型推断不能作用于两行
 
 ![image-20200429230713275](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200429230713275.png)
+
+
+
+## 2.10 数组
+
+```js
+let arr:(number|string)[] = [1,'23']
+
+let arr:{name:'string'}[] = [{name:'123'},{name:'345'}]
+```
+
+
+
+**类型别名**
+
+```js
+//这种方式,不能多也不能少
+type User = {
+    name:'string'
+}
+class User = {
+    name:'string'
+}
+
+let arr:User[] = [{name:'123'},{name:'345'}]
+
+
+
+```
+
+**元组**
+
+```js
+确定了元素个数和类型
+
+确定每一个位置上的类型
+let user:[string,string,number] = ['name','male',17]
+
+```
+
+**处理csv数据**
+
+![image-20200430003134804](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200430003134804.png)
+
+
+
+## 2.11 接口
+
+![image-20200430094508092](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200430094508092.png)
+
+```js
+//接口代表对象或者函数
+interface Person {
+  name: string
+}
+
+// type类型别名可以代表基础类型
+type Person1 = string
+
+优先级,接口优先于type类型别名
+```
+
+
+
+```js
+强校验
+interface Person4 {
+  readonly name: string
+  age?: number
+}
+
+const person4 = {
+  name: 'qiu',
+  age: 17,
+  sex: 'man',
+}
+const getPersonName4 = (person: Person) => {
+  console.log(person.name)
+}
+// 通过变量方式传递,弱校验
+getPersonName4(person4)
+
+// 通过字面量方式,强校验
+/* 
+  getPersonName4({
+  name: 'qiu',
+  age:17,
+  sex:'man'
+})
+ */
+    
+    
+    解决方式
+    额外的运算符
+interface Person4 {
+  readonly name: string
+  age?: number
+  //表示还有其他的类型,名是字符串,值是any
+  [propName:string]:any;
+}
+    //OK可以使用了
+getPersonName4({
+  name: 'qiu',
+  age:17,
+  sex:'man'
+})
+```
+
+
+
+## 2.12 类
+
+### construct
+
+```js
+constructor什么时候执行,new Person()的一瞬间
+
+Java的是同名的构造方法
+
+而JS的是直接constructor
+这样更爽啊
+class Result {
+    
+  private Status: boolean
+  private Message: string
+
+  constructor(success: boolean, message: string) {
+    this.Status = success
+    this.Message = message
+  }
+  // public Result(success: boolean, message: string) {
+  //   // super;
+  //   this.Status = success
+  //   this.Message = message
+  // }
+
+}
+
+
+ res.getStatus 
+使用get和set的方法,这样避免了直接来修改对象当中的属性,我这样的话只能修改值,不能干其他的事情
+
+-----------------------------这样会加倍爽爽爽----但是也有个问题,太多的时候就不太合适了.10个?20个?
+class Result3 {
+  constructor(private _Status: boolean, private _Message: string) {}
+  public get Status(): boolean {
+    return this._Status
+  }
+  public set Status(v: boolean) {
+    this._Status = v
+  }
+  public get Message(): string {
+    return this._Message
+  }
+  public set Message(v: string) {
+    this._Message = v
+  }
+}
+```
+
+
+
+空类也需要调用,只要有继承
+
+![image-20200430135509182](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200430135509182.png)
+
+```js
+class Parent {
+  constructor(private name: string) {}
+}
+//这样不对,如果有三个参数的话,也太low了吧
+class Child extends Parent {
+  constructor(name, private age: number) {
+    super(name)
+    // props是一个字符串,而不是父类里面的一些东西
+    console.log('props', props)
+  }
+}
+
+---------------------折中的方法
+class Parent {
+  constructor(private name: string, private sex: string) {}
+}
+class Child extends Parent {
+  constructor(name, sex, private age: number) {
+    super(name, sex)
+    // props是一个字符串,而不是父类里面的一些东西
+    // console.log('props', props)
+  }
+}
+
+const cc = new Child('姓名', 24)
+console.log('cc', cc)
+```
+
+## 2.13 get set
+
+```js
+好处.~~~,可以对私有属性做加工
+```
+
