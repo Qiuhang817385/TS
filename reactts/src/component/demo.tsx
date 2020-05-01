@@ -1,12 +1,34 @@
 import React, { ReactElement, ChangeEvent, useState } from 'react'
 import { Button, Form, Input, Checkbox } from 'antd'
+import { Redirect } from 'react-router-dom'
 import './login.css'
 import { LockOutlined } from '@ant-design/icons'
+import qs from 'qs'
+import Axios from 'axios'
 interface Props {}
 const Demo: React.FC = ({}: Props): ReactElement => {
+  const [isLogin, setIsLogin] = useState(false)
   const [form] = Form.useForm()
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values)
+    Axios.post(
+      '/login',
+      qs.stringify({
+        password: values.password,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    ).then((res) => {
+      if (res.data?.data) {
+        setIsLogin(true)
+      } else {
+        // 登录失败
+        setIsLogin(false)
+      }
+    })
   }
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event?.target?.value)

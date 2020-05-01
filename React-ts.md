@@ -1,3 +1,11 @@
+## 前端的缺陷,只能根据返回的数据来定义类型
+
+
+
+
+
+
+
 ## 创建项目
 
 ```js
@@ -258,7 +266,7 @@ FormEvent
 
 ![image-20200430213757513](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200430213757513.png)
 
-
+![image-20200501011541536](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501011541536.png)
 
 ## react里的prop怎么写
 
@@ -267,3 +275,208 @@ const App: React.FC = (props) => {}
 怎么使用里面的props.children
 ```
 
+
+
+## ts 函数组件写法2
+
+```js
+
+```
+
+![image-20200501000541920](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501000541920.png)
+
+
+
+## 类组件
+
+```js
+// 麻烦,还不如之前那样直接类里面state
+
+export default class Home extends Component<Props, State> {
+```
+
+
+
+
+
+## 配置代理
+
+![image-20200501001017443](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501001017443.png)
+
+
+
+
+
+## qs的使用
+
+```js
+yarn add qs @types/qs
+
+qs是一个js的库,需要安装ts的对应
+Axios.post(
+      '/login',
+      qs.stringify({
+        password: values.password,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    ).then((res) => {
+      if (res.data?.data) {
+        setIsLogin(true)
+      } else {
+        // 登录失败
+        setIsLogin(false)
+      }
+    })
+```
+
+## ts使用echarts官方库
+
+![image-20200501011924430](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501011924430.png)
+
+![image-20200501011956442](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501011956442.png)
+
+![image-20200501012010194](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012010194.png)
+
+![image-20200501012026436](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012026436.png)
+
+
+
+
+
+定义类型
+
+![image-20200501012245434](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012245434.png)
+
+
+
+
+
+## 对返回的数据类型做统一的描述
+
+描述![image-20200501012534137](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012534137.png)
+
+定义类型
+
+![image-20200501012815814](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012815814.png)
+
+![image-20200501012828749](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012828749.png)
+
+
+
+
+
+使用
+
+![image-20200501012739101](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501012739101.png)
+
+
+
+
+
+
+
+
+
+定义并且使用变量
+
+![image-20200501013008703](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501013008703.png)
+
+![image-20200501013028698](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501013028698.png)
+
+
+
+
+
+## 接口代码优化
+
+1.官方的接口,改成
+
+![image-20200501013534159](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501013534159.png)
+
+![image-20200501013553408](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501013553408.png)
+
+
+
+
+
+## 2.封装axios
+
+
+
+![image-20200501013700915](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501013700915.png)
+
+
+
+
+
+![image-20200501013936766](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501013936766.png)
+
+直接定义数据类型,相当于controller
+
+
+
+统一加上数据结构
+
+
+
+
+
+## 后端controller代码
+
+![image-20200501014633778](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501014633778.png)
+
+
+
+
+
+## 这样类型定义真的冗余了
+
+### 解决,使用一份定义的接口数据内容,要求?前后端都用TS??
+
+![image-20200501014403429](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501014403429.png)
+
+
+
+
+
+
+
+1.定义接口文档类型
+
+前面路由,后面返回值类型
+
+![image-20200501014910749](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501014910749.png)
+
+拷贝粘贴到前端的src目录下面
+
+![image-20200501015045982](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501015045982.png)
+
+![image-20200501015313387](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501015313387.png)
+
+
+
+2.后端使用
+
+![image-20200501014740174](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501014740174.png)
+
+![image-20200501014836485](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501014836485.png)
+
+
+
+
+
+## 学习网站,抽象语法树
+
+![image-20200501015553687](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501015553687.png)
+
+
+
+
+
+## 和第三方库集成
+
+![image-20200501015717038](C:\Users\Artificial\AppData\Roaming\Typora\typora-user-images\image-20200501015717038.png)

@@ -294,9 +294,7 @@ const RegistrationForm = () => {
         ]}
         {...tailFormItemLayout}
       >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
+        <Checkbox>I have read the agreement</Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
