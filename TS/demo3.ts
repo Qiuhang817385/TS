@@ -1,11 +1,11 @@
-class Person {
+class CPerson {
   name = 'dell'
   getName() {
     return this.name
   }
 }
 
-class Teacher extends Person {
+class Teacher extends CPerson {
   getTeacherName() {
     return 'Teacher'
   }
@@ -92,6 +92,8 @@ class Child extends Parent {
 const cc = new Child('姓名', 'man', 24)
 console.log('cc', cc)
 
+// ============================================================GET和set
+// ============================================================GET和set
 // ============================================================GET和set
 class Result3 {
   constructor(private _Status: boolean, private _Message: string) {}

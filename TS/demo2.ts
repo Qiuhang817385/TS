@@ -2,6 +2,7 @@ const getPersonName = (person: { name: string }) => {
   console.log(person.name)
 }
 const setPersonName2 = (person: { name: string }, name: string) => {
+
   person.name = name
 }
 // ============================================================定义接口
@@ -11,7 +12,7 @@ interface Person {
   age?: number
 }
 
-// type可以代表基础类型
+// type可以代表基础类型,也可以代表函数类型
 type Person1 = string
 // 接口要求传递的是对象
 const getPersonName3 = (person: Person) => {
@@ -26,6 +27,23 @@ const person = {
 }
 getPersonName3(person)
 
+// ============================================================类型别名
+type PlusType = (x: number, y: number) => number
+function sssP(x: number, y: number): number {
+  return x + y
+}
+const sssP2: PlusType = sssP
+
+// ============================================================联合类型
+type NameResolver = () => string
+type NameOrResolver = string | NameResolver
+function getNameRes(n: NameOrResolver): string {
+  if (typeof n === 'string') {
+    return n
+  } else {
+    return n()
+  }
+}
 // ============================================================接口2
 interface Person2 {
   readonly name: string
@@ -49,21 +67,34 @@ const getPersonName4 = (person: Person) => {
   console.log(person.name)
 }
 // 通过变量方式传递,弱校验
+// 通过变量方式传递,弱校验
+// 通过变量方式传递,弱校验
+// 通过变量方式传递,弱校验
+// 通过变量方式传递,弱校验
 getPersonName4(person4)
 
 // 通过字面量方式,强校验
-/* 
-getPersonName4({
+// 通过字面量方式,强校验
+// 通过字面量方式,强校验
+// 通过字面量方式,强校验
+// 通过字面量方式,强校验
+
+/* getPersonName4({
   name: 'qiu',
   age:17,
-  sex:'man'
+  sex:'man',
 })
  */
+ /* 除了原来定义的name和age 其余都会报错,这里是sex */
 // 解决方式
 
 interface Person5 {
   readonly name: string
   age?: number
+  // 表示除了可以接收name和age,也可以接收其他的数据类型
+  // 表示除了可以接收name和age,也可以接收其他的数据类型
+  // 表示除了可以接收name和age,也可以接收其他的数据类型
+  // 表示除了可以接收name和age,也可以接收其他的数据类型,名字是string,值是any类型
   [propName: string]: any
 }
 
@@ -100,3 +131,16 @@ const syHi: sayH = (word: string) => {
 }
 
 console.log('syHi()', syHi('hello'))
+
+// ============================================================函数接口2
+// 定义一个函数的接口类型,名字就是IPlus
+interface IPlus {
+  (a: number, b: number): number
+}
+// function plus(a: number, b: number): IPlus {
+//   return a + b
+// }
+
+const plus : IPlus =(a:number,b:number)=>{
+  return a+b;
+}

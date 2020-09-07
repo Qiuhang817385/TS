@@ -20,3 +20,13 @@ const getResult = (status: number) => {
 }
 let res = getResult(200)
 console.log(res)
+
+console.log('Status[200]', Status[200]) //OK
+
+// 常量枚举和计算枚举值
+// 常量枚举和计算枚举值
+// 常量枚举和计算枚举值
+
+// 这就是一个常量枚举
+const enum AAA {}
+// 这里的代码不会被编译到js文件当中

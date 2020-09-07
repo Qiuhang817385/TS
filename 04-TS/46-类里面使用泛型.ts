@@ -20,3 +20,18 @@ const data = new DataManager([
     name: 'zhuziyi',
   },
 ])
+
+// 需求,队列
+class Queue<T> {
+  private data: T[] = []
+  push(item: T) {
+    return this.data.push(item)
+  }
+  pop(): T | undefined {
+    if (this.data.length) {
+      return this.data.shift()
+    }
+    return undefined
+  }
+}
+const queue1 = new Queue<number>()

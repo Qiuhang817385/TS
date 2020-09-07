@@ -1,3 +1,32 @@
+function echo<T>(agrs: T): T {
+  return agrs
+}
+const resa = echo<boolean>(true)
+
+function swap<T, U>(tuple: [T, U]): [U, T] {
+  return [tuple[1], tuple[0]]
+}
+const ressw = swap<string, number>(['1', 2])
+
+function echoWithArr<T>(agrs: T[]): T[] {
+  console.log(agrs.length)
+  return agrs
+}
+
+const a = echoWithArr([1, 2, 3])
+// 约束泛型
+interface IWithLength {
+  length: number
+}
+// 这就是约束泛型
+// 这就是约束泛型
+// 这就是约束泛型
+// 这样的话,传递的时候,传递数组或者字符串都OK了,只要含有length属性
+function echoWithArr2<T extends IWithLength>(agrs: T[]): T[] {
+  console.log(agrs.length)
+  return agrs
+}
+
 // 需求，first是字符，second也是字符
 const addT = <T>(first: T, second: T) => {
   // if (typeof first === 'string' || typeof second === 'string') {

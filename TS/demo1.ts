@@ -3,7 +3,7 @@ interface Feature {
   name: string
 }
 
-interface Result<T> {
+interface IResult<T> {
   OK: 0 | 1
   data: T[]
 }
@@ -14,11 +14,11 @@ datas = [
   { id: 8, name: '改造2' },
 ]
 
-let getData = <T>(): Result<T> => {
+let getData = <T>(): IResult<T> => {
   return { OK: 1, data: datas }
 }
 // 定义和使用没什么问题,但是不能在函数定义的时候就对它进行操作
-let getData2: <T>(name: T, age: T) => Result<T> = () => {
+let getData2: <T>(name: T, age: T) => IResult<T> = () => {
   return { OK: 1, data: datas }
 }
 
@@ -39,3 +39,19 @@ const sub = <T>(p1: T | number, p2: T | number) => {
 
 sub<number>(1, 3)
 // console.log('sub<Num>({ a: 1 })', sub<Num>({ a: 1 }, { b: 2 }))
+
+// ============================================================类型断言
+function getLength(input: string | number): number {
+  // const str = input as String;
+  // if(str.length){
+  //   return str.length
+  // }else{
+  //   const number = input as Number
+  //   return number.toString().length;
+  // }
+  if ((<string>input).length) {
+    return (<string>input).length
+  } else {
+    return input.toString().length
+  }
+}
