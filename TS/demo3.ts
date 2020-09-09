@@ -50,7 +50,7 @@ class Result {
   }
 }
 
-// 调用,构造方法不支持传参.只能通过实例来传递
+// 调用,构造方法sadas不支持传参.只能通过实例来传递
 // 这样?太low了吧...
 let res = new Result(true, '123')
 // res.Result(true, '成功了')
