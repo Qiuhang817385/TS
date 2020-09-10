@@ -57,6 +57,7 @@ let res = new Result(true, '123')
 //直接调用,不需要()调用
 // res.getStatus,避免了直接修改对象的值
 console.log('res.getMessage', res)
+// 四 9月 10 11:36
 
 // ============================================================更简单的写法
 class Result2 {
