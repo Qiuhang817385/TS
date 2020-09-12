@@ -6,38 +6,235 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    .right .process {
-      display: inline-block;
-      width: 100px;
+    .numberSelect .timeselect .time-container {
+      display: flex;
+    }
+
+    .numberSelect .timeselect input[type='number'] {
+      width: 50px;
+    }
+
+    .table td {
+      width: 200px;
+      border: 1px solid red;
+      height: 30px;
+    }
+
+    .bottom .process {
+      width: 200px;
       height: 20px;
       background-color: aquamarine;
-      margin: 0 30px;
+      border: 1px solid red;
+      /* margin: 0 30px; */
+    }
+
+    .bottom .process input[type='range'] {
+      width: 195px;
     }
   </style>
 </head>
 
 <body>
-  <div class="top">
-
+  <div class="numberSelect">
     <table class="table">
       <tr>
-        <td class="time">1小时</td>
-        <td class="time">2小时</td>
-        <td class="time">30分钟</td>
+        <td class="timeselect">
+          <div class="time-container">
+            <input type="number">
+            <select name="select" id="select1">
+              <option value="secound">秒</option>
+              <option value="minute">分</option>
+              <option value="hour">小时</option>
+            </select>
+          </div>
+        </td>
+        <td class="timeselect">
+          <div class="time-container">
+            <input type="number">
+            <select name="select" id="select2">
+              <option value="secound">秒</option>
+              <option value="minute">分</option>
+              <option value="hour">小时</option>
+            </select>
+          </div>
+        </td>
+        <td class="timeselect">
+          <div class="time-container">
+            <input type="number">
+            <select name="select" id="select3">
+              <option value="secound">秒</option>
+              <option value="minute">分</option>
+              <option value="hour">小时</option>
+            </select>
+          </div>
+        </td>
       </tr>
     </table>
   </div>
-  <div class="right">
-    <div class="process">1</div>
-    <div class="process">2</div>
-    <div class="process">3</div>
+
+  <div class="top">
+    <table class="table">
+      <tr>
+        <td class="time"></td>
+        <td class="time"></td>
+        <td class="time"></td>
+      </tr>
+    </table>
   </div>
+  <div class="bottom">
+    <table class="table">
+      <tr>
+        <td class="process">
+          <input type="range" name="range" id="process1">
+        </td>
+        <td class="process">
+          <input type="range" name="range" id="process2">
+        </td>
+        <td class="process">
+          <input type="range" name="range" id="process3">
+        </td>
+      </tr>
+    </table>
+  </div>
+  <button onclick="handleTasks()">开始任务</button>
+  <button onclick="cancleTasks()">终止所有任务</button>
   <script>
-    const processes = document.querySelectorAll('.progress')
-    // processes.map(item => {
-    //   item.style
-    // })
+    let provinces = [
+      ["深圳市", "东莞市", "惠州市", "广州市"],
+      ["长沙市", "岳阳市", "株洲市", "湘潭市"],
+      ["厦门市", "福州市", "漳州市", "泉州市"]
+    ];
+    // 确定事件:onchange
+    // 2.函数   selectProvince()
+    function selectProvince() {
+      // 得到当前要操作的元素
+      // 得到当前选中的省份
+      // 从数组取出对应的城市信息,动态创建节点,添加到后面
+      let province = document.getElementById("province");
+      // 得到当前选中的是哪个城市
+      // province.value
+
+      let value = province.value;
+      let cities = provinces[value];
+      let citySelect = document.getElementById('city');
+      // 创建前先清空
+      citySelect.options.length = 0;
+
+      for (let i = 0; i < cities.length; i++) {
+        const cityText = cities[i];
+        // alert(element);
+
+        // 动态创建节点
+        let option1 = document.createElement('option');
+        // 创建城市文本节点
+        let textNode = document.createTextNode(cityText);
+
+        option1.appendChild(textNode);
+
+        //获取select
+        citySelect.appendChild(option1);
+      }
+    }
   </script>
+
+  <script>
+    const timeMap = {
+      'secound': '秒',
+      'minute': '分',
+      'hour': '时',
+    }
+    const timeTransform = (stamp) => {
+      switch (stamp) {
+        case 'secound':
+          return 1;
+        case 'minute':
+          return 60;
+        case 'hour':
+          return 3600
+        default:
+          return 1;
+      }
+    }
+
+    window.onload = function () {
+      const numbers = document.querySelectorAll('input[type=number]');
+      for (let index = 0; index < numbers.length; index++) {
+        const element = numbers[index];
+        element.value = 0
+        element.min = 0
+      }
+      const processes = document.querySelectorAll('[name=range]');
+      for (let i = 0; i < processes.length; i++) {
+        let ele = processes[i];
+        ele.min = 0;
+        ele.max = 100;
+        ele.value = 0;
+      }
+    }
+  </script>
+  <script>
+    // util 工具函数 查询3个时间和对应单位
+    const queryTimer = () => {
+      const timePojo = [];
+      const numbers = document.querySelectorAll('input[type=number]');
+      const selects = document.querySelectorAll('select');
+      for (let index = 0; index < numbers.length; index++) {
+        const time = numbers[index];
+        const option = selects[index];
+        timePojo.push({
+          time: time.value,
+          stamp: option.value
+        })
+      }
+      return timePojo;
+    }
+  </script>
+  <script>
+    // 点击填充时间到第二行 点击确定时间
+    const handleTimeSelect = () => {
+      let res = queryTimer();
+      const times = document.querySelectorAll('.time');
+      for (let i = 0; i < res.length; i++) {
+        const element = res[i];
+        times[i].innerHTML = `${element.time}  ${timeMap[element.stamp]}`
+      }
+    }
+  </script>
+  <script>
+    const taskStart = (value, elem) => {
+      const {
+        time,
+        stamp
+      } = value;
+      let intervalInms = time * timeTransform(stamp);
+      let i = 0;
+
+      const flag = setInterval(() => {
+        elem.value = i / intervalInms * 100;
+        i++;
+        if (elem.value >= 100) {
+          clearInterval(flag)
+        }
+      }, 1000)
+    }
+    const cancleTasks = () => {
+
+    }
+  </script>
+  <script>
+    // 开始任务
+    const handleTasks = () => {
+      handleTimeSelect();
+      const res = queryTimer();
+      const processes = document.querySelectorAll('[name=range]');
+      for (let index = 0; index < res.length; index++) {
+        const value = res[index];
+        const taskElem = processes[index];
+        taskStart(value, taskElem)
+      }
+    }
+  </script>
+
 </body>
 
 </html>
