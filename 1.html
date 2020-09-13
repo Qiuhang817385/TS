@@ -202,6 +202,8 @@
   </script>
   <script>
     const taskStart = (value, elem) => {
+      let flag;
+      clearInterval(flag)
       const {
         time,
         stamp
@@ -209,13 +211,13 @@
       let intervalInms = time * timeTransform(stamp);
       let i = 0;
 
-      const flag = setInterval(() => {
+      flag = setInterval(() => {
         elem.value = i / intervalInms * 100;
-        i++;
+        i = i + 0.001;
         if (elem.value >= 100) {
           clearInterval(flag)
         }
-      }, 1000)
+      }, 1)
     }
     const cancleTasks = () => {
 
