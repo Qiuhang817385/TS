@@ -98,44 +98,6 @@
   </div>
   <button onclick="handleTasks()">开始任务</button>
   <button onclick="cancleTasks()">终止所有任务</button>
-  <script>
-    let provinces = [
-      ["深圳市", "东莞市", "惠州市", "广州市"],
-      ["长沙市", "岳阳市", "株洲市", "湘潭市"],
-      ["厦门市", "福州市", "漳州市", "泉州市"]
-    ];
-    // 确定事件:onchange
-    // 2.函数   selectProvince()
-    function selectProvince() {
-      // 得到当前要操作的元素
-      // 得到当前选中的省份
-      // 从数组取出对应的城市信息,动态创建节点,添加到后面
-      let province = document.getElementById("province");
-      // 得到当前选中的是哪个城市
-      // province.value
-
-      let value = province.value;
-      let cities = provinces[value];
-      let citySelect = document.getElementById('city');
-      // 创建前先清空
-      citySelect.options.length = 0;
-
-      for (let i = 0; i < cities.length; i++) {
-        const cityText = cities[i];
-        // alert(element);
-
-        // 动态创建节点
-        let option1 = document.createElement('option');
-        // 创建城市文本节点
-        let textNode = document.createTextNode(cityText);
-
-        option1.appendChild(textNode);
-
-        //获取select
-        citySelect.appendChild(option1);
-      }
-    }
-  </script>
 
   <script>
     const timeMap = {
@@ -220,7 +182,7 @@
       }, 1)
     }
     const cancleTasks = () => {
-
+      // 取消任务
     }
   </script>
   <script>
